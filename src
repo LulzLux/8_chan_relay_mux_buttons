@@ -1,0 +1,91 @@
+#define RELAY1  2                        
+#define RELAY2  3                        
+#define RELAY3  4                        
+#define RELAY4  5
+#define RELAY5  6                        
+#define RELAY5  7                        
+#define RELAY7  8                        
+#define RELAY8  9
+
+int r0 = 0;      //value of select pin at the 4051 (s0)
+int r1 = 0;      //value of select pin at the 4051 (s1)
+int r2 = 0;      //value of select pin at the 4051 (s2)
+int count = 0;   //which y pin we are selecting
+
+void setup()
+
+{
+
+// initialize arduino data pins for multiplex ouput
+
+  pinMode(10, OUTPUT);    // s0
+  pinMode(11, OUTPUT);    // s1
+  pinMode(12, OUTPUT);    // s2
+
+/// initialize arduino data pins for relay output
+
+  pinMode(RELAY1, OUTPUT);       
+  pinMode(RELAY2, OUTPUT);
+  pinMode(RELAY3, OUTPUT);
+  pinMode(RELAY4, OUTPUT);
+  pinMode(RELAY5, OUTPUT);       
+  pinMode(RELAY6, OUTPUT);
+  pinMode(RELAY7, OUTPUT);
+  pinMode(RELAY8, OUTPUT);
+  
+}
+
+void loop () {
+
+    for (count=0; count<=7; count++) {
+
+    // select the bit  
+    r0 = bitRead(count,0);    // use this with arduino 0013 (and newer versions)     
+    r1 = bitRead(count,1);    // use this with arduino 0013 (and newer versions)     
+    r2 = bitRead(count,2);    // use this with arduino 0013 (and newer versions)     
+
+    //r0 = count & 0x01;      // old version of setting the bits
+    //r1 = (count>>1) & 0x01;      // old version of setting the bits
+    //r2 = (count>>2) & 0x01;      // old version of setting the bits
+
+    digitalWrite(10, r0);
+    digitalWrite(11, r1);
+    digitalWrite(12, r2);
+
+// write multiplexed pins
+
+   digitalWrite(RELAY1,LOW);           // Turns ON Relays 1
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY1,HIGH);          // Turns Relay Off
+
+ 
+
+   digitalWrite(RELAY2,LOW);           // Turns ON Relays 2
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY2,HIGH);          // Turns Relay Off
+
+   digitalWrite(RELAY3,LOW);           // Turns ON Relays 3
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY3,HIGH);          // Turns Relay Off
+
+   digitalWrite(RELAY4,LOW);           // Turns ON Relays 4
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY4,HIGH);          // Turns Relay Off 
+
+   digitalWrite(RELAY5,LOW);           // Turns ON Relays 1
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY5,HIGH);          // Turns Relay Off
+
+   digitalWrite(RELAY6,LOW);           // Turns ON Relays 2
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY6,HIGH);          // Turns Relay Off
+
+   digitalWrite(RELAY7,LOW);           // Turns ON Relays 3
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY7,HIGH);          // Turns Relay Off
+ 
+   digitalWrite(RELAY8,LOW);           // Turns ON Relays 4
+   delay(2000);                                      // Wait 2 seconds
+   digitalWrite(RELAY8,HIGH);          // Turns Relay Off     
+
+}
